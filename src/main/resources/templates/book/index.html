@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <title>Library</title>
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.slim.js"
+      integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $('.sidenav').sidenav()
+      })
+    </script>
+  </head>
+  <body class="grey lighten-5">
+    <nav class="light-blue darken-1">
+      <div class="nav-wrapper">
+        <a href="#!" class="brand-logo">Logo</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+          <i class="material-icons">menu</i>
+        </a>
+        <ul class="right hide-on-med-and-down">
+          <li class="active"><a href="/book">Livros</a></li>
+          <li><a href="#">Emprestados</a></li>
+          <li><a href="#">Usuários</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <ul class="sidenav" id="mobile-demo">
+      <li class="active"><a href="/book">Livros</a></li>
+      <li><a href="#">Emprestados</a></li>
+      <li><a href="#">Usuários</a></li>
+    </ul>
+
+    <main class="container">
+      <div
+        class="card-panel teal"
+        th:if="${success}"
+        th:text="${success}"
+      ></div>
+      <div
+        class="card-panel red white-text"
+        th:if="${error}"
+        th:text="${error}"
+      ></div>
+
+      <h2>Nossos Livros</h2>
+
+      <div class="row">
+        <div class="col s12 m6 l4" th:each="book : ${books}">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title" th:text="${book.title}"></span>
+              <p>de <span th:text="${book.author}"></span></p>
+              <p th:text="${book.synopsis}"></p>
+              <span
+                data-badge-caption="em estoque"
+                class="badge light-blue white-text"
+                th:text="${book.quantity}"
+              ></span>
+            </div>
+
+            <div class="card-action">
+              <a th:href="${'/book/delete/' + book.id}" class="btn red">
+                <i class="material-icons">delete</i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
