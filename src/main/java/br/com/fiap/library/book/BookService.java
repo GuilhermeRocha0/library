@@ -25,4 +25,8 @@ public class BookService {
         return true;
     }
 
+    public void save(Book book) {
+        repository.save(book);
+    }
+
 }

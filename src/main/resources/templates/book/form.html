@@ -49,40 +49,57 @@
     </ul>
 
     <main class="container">
-      <div
-        class="card-panel teal accent-3 white-text"
-        th:if="${success}"
-        th:text="${success}"
-      ></div>
-      <div
-        class="card-panel red darken-1 white-text"
-        th:if="${error}"
-        th:text="${error}"
-      ></div>
+      <h2>Cadastrar Livro</h2>
 
-      <h2>Nossos Livros</h2>
-
-      <div class="row">
-        <div class="col s12 m6 l4" th:each="book : ${books}">
-          <div class="card">
-            <div class="card-content">
-              <span class="card-title" th:text="${book.title}"></span>
-              <p>de <span th:text="${book.author}"></span></p>
-              <p th:text="${book.synopsis}"></p>
-              <span
-                data-badge-caption="em estoque"
-                class="badge light-blue white-text"
-                th:text="${book.quantity}"
-              ></span>
+      <div class="card">
+        <form action="/book" method="post" th:object="${book}">
+          <div class="card-content">
+            <div class="input-field">
+              <input
+                type="text"
+                th:field="*{title}"
+                th:classappend="${#fields.hasErrors('title')} ? invalid"
+              />
+              <label for="title">Título</label>
+              <span class="helper-text red-text" th:errors="*{title}"></span>
             </div>
 
-            <div class="card-action">
-              <a th:href="${'/book/delete/' + book.id}" class="btn red">
-                <i class="material-icons">delete</i>
-              </a>
+            <div class="input-field">
+              <input
+                type="text"
+                th:field="*{author}"
+                th:classappend="${#fields.hasErrors('author')} ? invalid"
+              />
+              <label for="title">Autor</label>
+              <span class="helper-text red-text" th:errors="*{author}"></span>
+            </div>
+
+            <div class="input-field">
+              <textarea
+                class="materialize-textarea"
+                th:field="*{synopsis}"
+                th:classappend="${#fields.hasErrors('synopsis')} ? invalid"
+              ></textarea>
+              <label for="synopsis">Sinópse</label>
+              <span class="helper-text red-text" th:errors="*{synopsis}"></span>
+            </div>
+
+            <div class="input-field">
+              <input
+                type="number"
+                min="1"
+                th:field="*{quantity}"
+                th:classappend="${#fields.hasErrors('quantity')} ? invalid"
+              />
+              <label for="title">Quantidade</label>
+              <span class="helper-text red-text" th:errors="*{quantity}"></span>
             </div>
           </div>
-        </div>
+          <div class="card-action right-align">
+            <a href="/book">Cancelar</a>
+            <button class="btn">Cadastrar</button>
+          </div>
+        </form>
       </div>
     </main>
 
