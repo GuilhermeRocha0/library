@@ -52,7 +52,7 @@
       <h2>Cadastrar Livro</h2>
 
       <div class="card">
-        <form action="/book" method="post" th:object="${book}">
+        <form th:action="${'/book'}" method="post" th:object="${book}">
           <div class="card-content">
             <div class="input-field">
               <input
