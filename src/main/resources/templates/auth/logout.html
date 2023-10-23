@@ -16,15 +16,14 @@
 
   <body class="grey lighten-5">
     <main class="container center">
-      <h4>Tem certeza que deseja sair da aplicação?</h4>
+      <h4 th:text="#{page.logout.title}"></h4>
 
       <form th:action="${'/logout'}" method="post">
-        <a href="/task" class="btn grey">
+        <a href="/book" class="btn grey" th:text="#{page.logout.cancelButton}">
           <i class="material-icons left">chevron_left</i>
-          Cancelar
         </a>
 
-        <button class="btn">Sim, desejo sair</button>
+        <button class="btn" th:text="#{page.logout.confirmButton}"></button>
       </form>
     </main>
   </body>

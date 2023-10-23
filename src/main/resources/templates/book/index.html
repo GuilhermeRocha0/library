@@ -37,9 +37,9 @@
           <i class="material-icons">menu</i>
         </a>
         <ul class="right hide-on-med-and-down">
-          <li class="active"><a href="/book">Livros</a></li>
-          <li><a href="#">Emprestados</a></li>
-          <li><a href="#">Usuários</a></li>
+          <li class="active"><a href="/book" th:text="#{navbar.title}"></a></li>
+          <li><a href="#" th:text="#{navbar.borrowed}"></a></li>
+          <li><a href="#" th:text="#{users}"></a></li>
           <li>
             <!-- Dropdown Trigger -->
             <a class="dropdown-trigger" href="#" data-target="dropdown1">
@@ -55,7 +55,9 @@
               <li><span th:text="${username}"></span></li>
               <li class="divider" tabindex="-1"></li>
               <li>
-                <a href="/logout"><i class="material-icons">logout</i>sair</a>
+                <a href="/logout" th:text="#{users.logout}"
+                  ><i class="material-icons">logout</i></a
+                >
               </li>
             </ul>
           </li>
@@ -64,23 +66,14 @@
     </nav>
 
     <ul class="sidenav" id="mobile-demo">
-      <li class="active"><a href="/book">Livros</a></li>
-      <li><a href="#">Emprestados</a></li>
-      <li><a href="#">Usuários</a></li>
+      <li class="active"><a href="/book" th:text="#{navbar.title}"></a></li>
+      <li><a href="#" th:text="#{navbar.borrowed}">Emprestados</a></li>
+      <li><a href="#" th:text="#{users}">Usuários</a></li>
+      <li class="divider" tabindex="-1"></li>
       <li>
-        <!-- Dropdown Trigger -->
-        <a class="dropdown-trigger" href="#" data-target="dropdown2">
-          <img th:src="${avatar_url}" alt="avatar do usuário" class="avatar" />
-        </a>
-
-        <!-- Dropdown Structure -->
-        <ul id="dropdown2" class="dropdown-content">
-          <li><span th:text="${username}"></span></li>
-          <li class="divider" tabindex="-1"></li>
-          <li>
-            <a href="/logout"><i class="material-icons">logout</i>sair</a>
-          </li>
-        </ul>
+        <a href="/logout" th:text="#{users.logout}"
+          ><i class="material-icons">logout</i></a
+        >
       </li>
     </ul>
 
@@ -96,17 +89,18 @@
         th:text="${error}"
       ></div>
 
-      <h2>Nossos Livros</h2>
+      <h2 th:text="#{page.home.title}"></h2>
 
       <div class="row">
         <div class="col s12 m6 l4" th:each="book : ${books}">
           <div class="card">
             <div class="card-content">
               <span class="card-title" th:text="${book.title}"></span>
-              <p>de <span th:text="${book.author}"></span></p>
+              <span th:text="#{card.by}"></span>
+              <span th:text="${book.author}"></span>
               <p th:text="${book.synopsis}"></p>
               <span
-                data-badge-caption="em estoque"
+                th:data-badge-caption="#{card.stock}"
                 class="badge light-blue white-text"
                 th:text="${book.quantity}"
               ></span>

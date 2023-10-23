@@ -16,13 +16,13 @@
 
   <body class="grey lighten-5">
     <main class="container center">
-      <h1>Library</h1>
+      <h1 th:text="#{page.login.title}"></h1>
 
-      <p>App para controle de livros de uma biblioteca</p>
+      <p th:text="#{page.login.text}"></p>
 
       <a href="/oauth2/authorization/github" class="btn">
         <i class="material-icons left">check</i>
-        entrar com github
+        <span th:text="#{page.login.loginButton}"></span>
       </a>
     </main>
   </body>

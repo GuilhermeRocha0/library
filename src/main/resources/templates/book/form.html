@@ -35,69 +35,75 @@
           <i class="material-icons">menu</i>
         </a>
         <ul class="right hide-on-med-and-down">
-          <li class="active"><a href="/book">Livros</a></li>
-          <li><a href="#">Emprestados</a></li>
-          <li><a href="#">Usuários</a></li>
+          <li class="active"><a href="/book" th:text="#{navbar.title}"></a></li>
+          <li><a href="#" th:text="#{navbar.borrowed}"></a></li>
+          <li><a href="#" th:text="#{users}"></a></li>
         </ul>
       </div>
     </nav>
 
     <ul class="sidenav" id="mobile-demo">
-      <li class="active"><a href="/book">Livros</a></li>
-      <li><a href="#">Emprestados</a></li>
-      <li><a href="#">Usuários</a></li>
+      <li class="active"><a href="/book" th:text="#{navbar.title}"></a></li>
+      <li><a href="#" th:text="#{navbar.borrowed}"></a></li>
+      <li><a href="#" th:text="#{users}"></a></li>
     </ul>
 
     <main class="container">
-      <h2>Cadastrar Livro</h2>
+      <h2 th:text="#{page.bookForm.title}"></h2>
 
       <div class="card">
         <form th:action="${'/book'}" method="post" th:object="${book}">
           <div class="card-content">
             <div class="input-field">
               <input
+                required
                 type="text"
                 th:field="*{title}"
                 th:classappend="${#fields.hasErrors('title')} ? invalid"
               />
-              <label for="title">Título</label>
+              <label for="title" th:text="#{book.label.title}"></label>
               <span class="helper-text red-text" th:errors="*{title}"></span>
             </div>
 
             <div class="input-field">
               <input
+                required
                 type="text"
                 th:field="*{author}"
                 th:classappend="${#fields.hasErrors('author')} ? invalid"
               />
-              <label for="title">Autor</label>
+              <label for="title" th:text="#{book.label.author}"></label>
               <span class="helper-text red-text" th:errors="*{author}"></span>
             </div>
 
             <div class="input-field">
               <textarea
+                required
                 class="materialize-textarea"
                 th:field="*{synopsis}"
                 th:classappend="${#fields.hasErrors('synopsis')} ? invalid"
               ></textarea>
-              <label for="synopsis">Sinópse</label>
+              <label for="synopsis" th:text="#{book.label.synopsis}"></label>
               <span class="helper-text red-text" th:errors="*{synopsis}"></span>
             </div>
 
             <div class="input-field">
               <input
+                required
                 type="number"
                 min="1"
                 th:field="*{quantity}"
                 th:classappend="${#fields.hasErrors('quantity')} ? invalid"
               />
-              <label for="title">Quantidade</label>
+              <label for="title" th:text="#{book.label.quantity}"></label>
               <span class="helper-text red-text" th:errors="*{quantity}"></span>
             </div>
           </div>
           <div class="card-action right-align">
-            <a href="/book">Cancelar</a>
-            <button class="btn">Cadastrar</button>
+            <a href="/book" th:text="#{page.bookForm.cancelButton}"></a>
+            <button class="btn" th:text="#{page.bookForm.createButton}">
+              Cadastrar
+            </button>
           </div>
         </form>
       </div>
