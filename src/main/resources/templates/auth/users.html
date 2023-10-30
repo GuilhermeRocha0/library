@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{_template :: head('Usuários')}"></head>
+
+  <body class="grey lighten-5">
+    <nav th:replace="~{_template :: #navbar}"></nav>
+
+    <main class="container">
+      <div
+        class="card-panel teal accent-3 white-text"
+        th:if="${success}"
+        th:text="${success}"
+      ></div>
+      <div
+        class="card-panel red darken-1 white-text"
+        th:if="${error}"
+        th:text="${error}"
+      ></div>
+
+      <h2 th:text="#{page.users.title}"></h2>
+      <h2 th:text="${user_id}"></h2>
+
+      <ul class="collection">
+        <li class="collection-item" th:each="user : ${users}">
+          <img
+            th:src="${user.avatarUrl}"
+            class="avatar"
+            alt="avatar do usuário"
+          />
+          <span th:text="${user.name}"></span>
+          <span th:text="${user}"></span>
+        </li>
+      </ul>
+    </main>
+  </body>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('.dropdown-trigger')
+      const options = {
+        constrainWidth: false,
+        coverTrigger: false
+      }
+      var instances = M.Dropdown.init(elems, options)
+    })
+  </script>
+</html>

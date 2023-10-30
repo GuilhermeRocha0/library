@@ -1,10 +1,13 @@
 package br.com.fiap.library.book;
 
+import java.util.List;
+
+import br.com.fiap.library.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Max;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -33,5 +36,12 @@ public class Book {
     @Positive
     @Min(1)
     Integer quantity;
+
+    @NotNull
+    @Min(0)
+    Integer inStock;
+
+    @OneToMany
+    private List<User> users;
 
 }

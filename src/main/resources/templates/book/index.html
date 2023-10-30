@@ -1,81 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <link rel="stylesheet" href="style.css" />
-
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-
-    <title>Library</title>
-
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.slim.js"
-      integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc="
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script>
-      $(document).ready(function () {
-        $('.sidenav').sidenav()
-      })
-    </script>
-  </head>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{_template :: head('Livros')}"> </head>
   <body class="grey lighten-5">
-    <nav class="light-blue darken-1">
-      <div class="nav-wrapper">
-        <a href="/book" class="brand-logo">Logo</a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger">
-          <i class="material-icons">menu</i>
-        </a>
-        <ul class="right hide-on-med-and-down">
-          <li class="active"><a href="/book" th:text="#{navbar.title}"></a></li>
-          <li><a href="#" th:text="#{navbar.borrowed}"></a></li>
-          <li><a href="#" th:text="#{users}"></a></li>
-          <li>
-            <!-- Dropdown Trigger -->
-            <a class="dropdown-trigger" href="#" data-target="dropdown1">
-              <img
-                th:src="${avatar_url}"
-                alt="avatar do usuário"
-                class="avatar"
-              />
-            </a>
-
-            <!-- Dropdown Structure -->
-            <ul id="dropdown1" class="dropdown-content">
-              <li><span th:text="${username}"></span></li>
-              <li class="divider" tabindex="-1"></li>
-              <li>
-                <a href="/logout" th:text="#{users.logout}"
-                  ><i class="material-icons">logout</i></a
-                >
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <ul class="sidenav" id="mobile-demo">
-      <li class="active"><a href="/book" th:text="#{navbar.title}"></a></li>
-      <li><a href="#" th:text="#{navbar.borrowed}">Emprestados</a></li>
-      <li><a href="#" th:text="#{users}">Usuários</a></li>
-      <li class="divider" tabindex="-1"></li>
-      <li>
-        <a href="/logout" th:text="#{users.logout}"
-          ><i class="material-icons">logout</i></a
-        >
-      </li>
-    </ul>
+    <nav th:replace="~{_template :: #navbar}"></nav>
 
     <main class="container">
       <div
@@ -90,6 +17,7 @@
       ></div>
 
       <h2 th:text="#{page.home.title}"></h2>
+      <h2 th:text="${user_id}"></h2>
 
       <div class="row">
         <div class="col s12 m6 l4" th:each="book : ${books}">
@@ -102,13 +30,29 @@
               <span
                 th:data-badge-caption="#{card.stock}"
                 class="badge light-blue white-text"
-                th:text="${book.quantity}"
+                th:text="${book.inStock}"
               ></span>
             </div>
 
             <div class="card-action">
               <a th:href="${'/book/delete/' + book.id}" class="btn red">
                 <i class="material-icons">delete</i>
+              </a>
+              <a
+                th:if="${!#lists.contains(book.users, user)}"
+                th:href="${'/book/catch/' + book.id}"
+                class="btn purple"
+                title="pegar tarefa"
+              >
+                <i class="material-icons">pan_tool</i>
+              </a>
+              <a
+                th:if="${#lists.contains(book.users, user)}"
+                th:href="${'/book/drop/' + book.id}"
+                class="btn amber black-text"
+                title="largar tarefa"
+              >
+                <i class="material-icons">do_not_touch</i>
               </a>
             </div>
           </div>

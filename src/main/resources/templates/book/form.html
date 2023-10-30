@@ -1,52 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-
-    <title>Library</title>
-
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.slim.js"
-      integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc="
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script>
-      $(document).ready(function () {
-        $('.sidenav').sidenav()
-      })
-    </script>
+<head th:replace="~{_template :: head('Cadastrar')}"></head>
   </head>
   <body class="grey lighten-5">
-    <nav class="light-blue darken-1">
-      <div class="nav-wrapper">
-        <a href="/book" class="brand-logo">Logo</a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger">
-          <i class="material-icons">menu</i>
-        </a>
-        <ul class="right hide-on-med-and-down">
-          <li class="active"><a href="/book" th:text="#{navbar.title}"></a></li>
-          <li><a href="#" th:text="#{navbar.borrowed}"></a></li>
-          <li><a href="#" th:text="#{users}"></a></li>
-        </ul>
-      </div>
-    </nav>
-
-    <ul class="sidenav" id="mobile-demo">
-      <li class="active"><a href="/book" th:text="#{navbar.title}"></a></li>
-      <li><a href="#" th:text="#{navbar.borrowed}"></a></li>
-      <li><a href="#" th:text="#{users}"></a></li>
-    </ul>
+    <nav th:replace="~{_template :: #navbar}"></nav>
 
     <main class="container">
       <h2 th:text="#{page.bookForm.title}"></h2>
@@ -115,4 +73,15 @@
       </a>
     </div>
   </body>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('.dropdown-trigger')
+      const options = {
+        constrainWidth: false,
+        coverTrigger: false
+      }
+      var instances = M.Dropdown.init(elems, options)
+    })
+  </script>
 </html>

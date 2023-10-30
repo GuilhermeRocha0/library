@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.fiap.library.user.User;
 import jakarta.validation.Valid;
 
 @Controller
@@ -31,6 +32,8 @@ public class BookController {
         model.addAttribute("username", user.getAttribute("name"));
         model.addAttribute("avatar_url", user.getAttribute("avatar_url"));
         model.addAttribute("books", service.findAll());
+        model.addAttribute("user_id", user.getAttribute("id"));
+
         return "book/index";
     }
 
@@ -46,7 +49,10 @@ public class BookController {
     }
 
     @GetMapping("new")
-    public String form(Book book) {
+    public String form(Book book, Model model, @AuthenticationPrincipal OAuth2User user) {
+        model.addAttribute("username", user.getAttribute("name"));
+        model.addAttribute("avatar_url", user.getAttribute("avatar_url"));
+        model.addAttribute("books", service.findAll());
         return "book/form";
     }
 
@@ -61,6 +67,20 @@ public class BookController {
 
     private String getMessage(String code) {
         return message.getMessage(code, null, LocaleContextHolder.getLocale());
+    }
+
+    @GetMapping("catch/{id}")
+    public String catchBook(@PathVariable Long id, @AuthenticationPrincipal OAuth2User user) {
+        service.catchBook(id, User.convert(user));
+        service.decrement(id);
+        return "redirect:/book";
+    }
+
+    @GetMapping("drop/{id}")
+    public String dropBook(@PathVariable Long id, @AuthenticationPrincipal OAuth2User user) {
+        service.dropBook(id, User.convert(user));
+        service.increment(id);
+        return "redirect:/book";
     }
 
 }
